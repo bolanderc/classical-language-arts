@@ -1,0 +1,5 @@
+student,book,packet_type,google_doc_id,status,include_in_portfolio,term,completed_date,parent_notes
+Emma,The Secret Garden,Writing Packet,EMMA_SECRET_GARDEN_GOOGLE_DOC_ID,Ready for Review,yes,2026 Spring,,
+James,The Secret Garden,Writing Packet,JAMES_SECRET_GARDEN_GOOGLE_DOC_ID,Ready for Review,yes,2026 Spring,,
+Emma,Treasure Island,Writing Packet,EMMA_TREASURE_ISLAND_GOOGLE_DOC_ID,In Progress,no,2026 Spring,,
+James,Treasure Island,Writing Packet,JAMES_TREASURE_ISLAND_GOOGLE_DOC_ID,In Progress,no,2026 Spring,,

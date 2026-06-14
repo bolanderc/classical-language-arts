@@ -24,6 +24,9 @@ book:
 
     - part: "Planning"
       chapters:
+        - student-dashboard.qmd
+        - google-docs-workflow.qmd
+        - student-response-template.qmd
         - planning.qmd
         - references.qmd
 

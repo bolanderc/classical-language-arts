@@ -1,6 +1,9 @@
 **/.quarto/
 **/_book/
 *.html
+!index.html
+!kid-dashboard/index.html
+!kid-dashboard/parent-review.html
 *.pdf
 *.epub
 *.aux

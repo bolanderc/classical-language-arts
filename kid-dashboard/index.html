@@ -1,0 +1,1317 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Bolander School Dashboard</title>
+  <style>
+    :root {
+      --ink: #263238;
+      --paper: #fffaf0;
+      --line: #d8c9a5;
+      --green: #3f8f61;
+      --blue: #3d73b9;
+      --gold: #d69b2d;
+      --rose: #b85d6a;
+      --mint: #dff0df;
+      --sky: #e4f0fa;
+      --cream: #fff6dc;
+      --shadow: 0 14px 36px rgba(57, 43, 25, 0.14);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      font-family: "Segoe UI", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background:
+        linear-gradient(135deg, rgba(223, 240, 223, 0.74), rgba(228, 240, 250, 0.85)),
+        var(--paper);
+    }
+
+    a {
+      color: inherit;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    .app-shell {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+      padding: 16px 0 22px;
+    }
+
+    .brand h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 4rem);
+      line-height: 0.95;
+    }
+
+    .brand p {
+      margin: 10px 0 0;
+      max-width: 620px;
+      font-size: 1.05rem;
+      color: #4c5a50;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+      gap: 10px;
+    }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 42px;
+      padding: 10px 14px;
+      border: 2px solid #263238;
+      border-radius: 8px;
+      background: #ffffff;
+      box-shadow: 3px 3px 0 #263238;
+      text-decoration: none;
+      font-weight: 800;
+      cursor: pointer;
+      transition: transform 140ms ease, box-shadow 140ms ease;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      transform: translate(2px, 2px);
+      box-shadow: 1px 1px 0 #263238;
+    }
+
+    .button.primary {
+      background: var(--gold);
+    }
+
+    .button.small {
+      min-height: 34px;
+      padding: 6px 10px;
+      font-size: 0.9rem;
+    }
+
+    .button.full {
+      width: 100%;
+      margin-top: 10px;
+    }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      margin: 8px 0 22px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+    }
+
+    .tab-button {
+      min-width: 132px;
+      border: 2px solid #263238;
+      border-radius: 8px;
+      background: #ffffff;
+      padding: 12px 16px;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    .tab-button[aria-selected="true"] {
+      background: #263238;
+      color: #ffffff;
+    }
+
+    .view {
+      display: none;
+    }
+
+    .view.active {
+      display: block;
+    }
+
+    #james.active {
+      --student-primary: #1d63b7;
+      --student-secondary: #f2c744;
+      --student-accent: #4c9a4f;
+      --student-ink: #111111;
+    }
+
+    #emma.active {
+      --student-primary: #7a48b8;
+      --student-secondary: #f29ac2;
+      --student-accent: #3d8bd4;
+      --student-warm: #c9384a;
+      --student-ink: #2a1738;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.2fr) minmax(280px, 0.8fr);
+      gap: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: var(--shadow);
+      padding: 18px;
+    }
+
+    #james .panel {
+      border-color: var(--student-ink);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.92), rgba(231, 243, 236, 0.92)),
+        #ffffff;
+      box-shadow: 6px 6px 0 var(--student-ink);
+    }
+
+    #emma .panel {
+      border-color: var(--student-primary);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.94), rgba(248, 231, 242, 0.94)),
+        #ffffff;
+      box-shadow: 6px 6px 0 var(--student-warm);
+    }
+
+    .panel h2,
+    .panel h3 {
+      margin: 0 0 12px;
+    }
+
+    .student-card {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+
+    .avatar {
+      display: grid;
+      place-items: center;
+      width: 78px;
+      height: 78px;
+      border: 2px solid #263238;
+      border-radius: 50%;
+      background: var(--sky);
+      box-shadow: 3px 3px 0 #263238;
+      font-size: 2rem;
+      font-weight: 900;
+    }
+
+    #james .avatar {
+      color: var(--student-ink);
+      background: linear-gradient(135deg, var(--student-secondary), var(--student-accent));
+      border-color: var(--student-ink);
+      box-shadow: 4px 4px 0 var(--student-primary);
+    }
+
+    .avatar.emma {
+      background: #f6dfe5;
+    }
+
+    #emma .avatar {
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--student-primary), var(--student-secondary), var(--student-accent));
+      border-color: var(--student-warm);
+      box-shadow: 4px 4px 0 var(--student-primary);
+    }
+
+    .student-card h2 {
+      margin-bottom: 4px;
+      font-size: 1.8rem;
+    }
+
+    .student-card p {
+      margin: 0;
+      color: #546057;
+    }
+
+    .subject-list {
+      display: grid;
+      gap: 14px;
+    }
+
+    .subject-row {
+      display: grid;
+      gap: 7px;
+      padding: 12px;
+      border: 1px solid #e5dbc0;
+      border-radius: 8px;
+      background: #fffdf7;
+    }
+
+    #james .subject-row {
+      border: 2px solid var(--student-ink);
+      background:
+        linear-gradient(135deg, rgba(29, 99, 183, 0.12), rgba(242, 199, 68, 0.32)),
+        #fff8cf;
+      box-shadow: 4px 4px 0 var(--student-ink);
+    }
+
+    .subject-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-weight: 900;
+    }
+
+    .progress-track {
+      position: relative;
+      height: 22px;
+      overflow: hidden;
+      border: 2px solid #263238;
+      border-radius: 999px;
+      background: #ffffff;
+    }
+
+    #james .progress-track {
+      height: 30px;
+      border-color: var(--student-ink);
+      background:
+        repeating-linear-gradient(90deg, rgba(17, 17, 17, 0.08) 0 10px, transparent 10px 20px),
+        #dbeaff;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      border-right: 2px solid #263238;
+      background: linear-gradient(90deg, var(--green), #8ccf72);
+      transition: width 220ms ease;
+    }
+
+    #james .progress-fill {
+      border-right-color: var(--student-ink);
+      background:
+        linear-gradient(180deg, rgba(255, 255, 255, 0.45), rgba(255, 255, 255, 0) 42%),
+        linear-gradient(90deg, var(--student-primary), var(--student-accent), var(--student-secondary));
+    }
+
+    #james .progress-track::after {
+      content: "80%";
+      position: absolute;
+      top: -2px;
+      bottom: -2px;
+      left: 80%;
+      display: grid;
+      place-items: center;
+      width: 4px;
+      transform: translateX(-50%);
+      background: var(--student-secondary);
+      color: var(--student-ink);
+      font-size: 0.68rem;
+      font-weight: 1000;
+      line-height: 1;
+      box-shadow: 0 0 0 2px var(--student-ink);
+    }
+
+    .game-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.86rem;
+      font-weight: 900;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 28px;
+      padding: 4px 9px;
+      border: 2px solid var(--student-ink);
+      border-radius: 999px;
+      background: #ffffff;
+    }
+
+    #james .badge.ready {
+      background: var(--student-accent);
+      color: #ffffff;
+    }
+
+    #james .badge.target {
+      background: var(--student-secondary);
+      color: var(--student-ink);
+    }
+
+    .quest-controls {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .quest-control {
+      display: grid;
+      grid-template-columns: 38px minmax(0, 1fr) 38px;
+      gap: 8px;
+      align-items: center;
+      padding: 9px;
+      border: 2px solid var(--student-ink);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.78);
+    }
+
+    .quest-control label {
+      display: grid;
+      gap: 3px;
+      text-align: center;
+      font-weight: 900;
+    }
+
+    .quest-control input {
+      width: 100%;
+      min-width: 0;
+      padding: 6px;
+      border: 2px solid var(--student-ink);
+      border-radius: 8px;
+      text-align: center;
+      font-weight: 1000;
+      background: #ffffff;
+    }
+
+    .quest-control small {
+      color: #4a5560;
+      font-size: 0.72rem;
+      text-transform: uppercase;
+    }
+
+    .level-message {
+      min-height: 24px;
+      font-weight: 1000;
+      color: var(--student-primary);
+    }
+
+    .review-list {
+      display: grid;
+      gap: 12px;
+    }
+
+    .review-item {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 12px;
+      align-items: center;
+      padding: 12px;
+      border: 2px solid #263238;
+      border-radius: 8px;
+      background: #fffdf7;
+    }
+
+    .review-item h3 {
+      margin: 0 0 4px;
+      font-size: 1rem;
+    }
+
+    .review-item p {
+      margin: 0;
+      color: #52605a;
+      font-weight: 750;
+    }
+
+    .review-empty {
+      padding: 18px;
+      border: 2px dashed #8a806b;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.7);
+      font-weight: 850;
+      text-align: center;
+    }
+
+    .status-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 26px;
+      padding: 3px 8px;
+      border: 2px solid #263238;
+      border-radius: 999px;
+      background: #ffffff;
+      font-size: 0.8rem;
+      font-weight: 1000;
+      text-decoration: none;
+    }
+
+    .status-pill.pending {
+      background: #f2c744;
+    }
+
+    .status-pill.approved {
+      background: #4c9a4f;
+      color: #ffffff;
+    }
+
+    .controls {
+      display: grid;
+      grid-template-columns: 38px minmax(120px, 1fr) 38px;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .icon-button {
+      display: grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 2px solid #263238;
+      border-radius: 8px;
+      background: #ffffff;
+      font-size: 1.3rem;
+      font-weight: 900;
+      cursor: pointer;
+    }
+
+    #james .icon-button {
+      color: var(--student-ink);
+      border-color: var(--student-ink);
+      background: var(--student-secondary);
+    }
+
+    .checklist {
+      display: grid;
+      gap: 10px;
+    }
+
+    .check-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 10px;
+      align-items: start;
+      padding: 11px;
+      border: 1px solid #e5dbc0;
+      border-radius: 8px;
+      background: #fffdf7;
+      font-weight: 750;
+    }
+
+    #emma .check-item {
+      border: 2px solid var(--student-primary);
+      background: #edf6ff;
+    }
+
+    .check-item input {
+      width: 22px;
+      height: 22px;
+      margin-top: 1px;
+      accent-color: var(--rose);
+    }
+
+    #emma .check-item input {
+      accent-color: var(--student-warm);
+    }
+
+    .check-item:has(.status-pill.approved) {
+      background: #f7eef1;
+      color: #546057;
+      text-decoration: line-through;
+    }
+
+    #emma .check-item:has(.status-pill.approved) {
+      background: #ffe1ec;
+      border-color: var(--student-warm);
+    }
+
+    #emma .check-item:has(.status-pill.pending) {
+      background: #fff5c4;
+      border-color: #d5a514;
+    }
+
+    .summary-number {
+      display: grid;
+      place-items: center;
+      min-height: 130px;
+      border: 2px solid #263238;
+      border-radius: 8px;
+      background: var(--mint);
+      text-align: center;
+    }
+
+    #james .summary-number {
+      color: var(--student-ink);
+      border-color: var(--student-ink);
+      background: linear-gradient(135deg, var(--student-secondary), #ffffff 44%, var(--student-accent));
+    }
+
+    #emma .summary-number {
+      color: #ffffff;
+      border-color: var(--student-warm);
+      background: linear-gradient(135deg, var(--student-primary), var(--student-secondary), var(--student-accent));
+    }
+
+    .summary-number strong {
+      display: block;
+      font-size: 3.4rem;
+      line-height: 1;
+    }
+
+    .score-detail {
+      margin-top: 10px;
+      font-weight: 900;
+      text-align: center;
+    }
+
+    #james .score-detail {
+      color: var(--student-ink);
+    }
+
+    .next-box {
+      margin-top: 14px;
+      padding: 14px;
+      border-radius: 8px;
+      background: var(--cream);
+      border: 1px solid #e3cf91;
+    }
+
+    #james .next-box {
+      border: 2px solid var(--student-ink);
+      background: #e6f0ff;
+    }
+
+    #emma .next-box {
+      border: 2px solid var(--student-primary);
+      background: #ffe1ec;
+    }
+
+    .next-box label {
+      display: block;
+      margin-bottom: 6px;
+      font-weight: 900;
+    }
+
+    .next-box input {
+      width: 100%;
+      padding: 10px;
+      border: 2px solid #263238;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    #james .next-box input {
+      border-color: var(--student-ink);
+    }
+
+    #emma .next-box input {
+      border-color: var(--student-warm);
+    }
+
+    .book-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .book-card {
+      display: grid;
+      gap: 10px;
+      align-content: start;
+      min-height: 100%;
+      border: 2px solid var(--line);
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.9);
+      padding: 14px;
+      box-shadow: var(--shadow);
+    }
+
+    .cover {
+      display: grid;
+      place-items: center;
+      min-height: 190px;
+      border: 3px solid #263238;
+      border-radius: 7px;
+      box-shadow: 6px 6px 0 rgba(38, 50, 56, 0.26);
+      color: #ffffff;
+      text-align: center;
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cover::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border: 2px solid rgba(255, 255, 255, 0.58);
+      border-radius: 4px;
+    }
+
+    .cover span {
+      position: relative;
+      display: block;
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 1.45rem;
+      font-weight: 800;
+      text-wrap: balance;
+    }
+
+    .aesop {
+      background: linear-gradient(145deg, #70533d, #c18e4f);
+    }
+
+    .alice {
+      background: linear-gradient(145deg, #4f83b6, #c86472);
+    }
+
+    .treasure {
+      background: linear-gradient(145deg, #2f675e, #d39b3d);
+    }
+
+    .women {
+      background: linear-gradient(145deg, #8b4554, #d8a66a);
+    }
+
+    .garden {
+      background: linear-gradient(145deg, #3e7b59, #b9566c);
+    }
+
+    .willows {
+      background: linear-gradient(145deg, #4a7596, #7fa962);
+    }
+
+    .book-card h3 {
+      margin: 4px 0 0;
+      font-size: 1.05rem;
+    }
+
+    .book-card p {
+      margin: 0;
+      color: #546057;
+      font-size: 0.95rem;
+    }
+
+    .book-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: auto;
+    }
+
+    .book-links a {
+      border: 1px solid #263238;
+      border-radius: 8px;
+      padding: 7px 9px;
+      background: #ffffff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 0.9rem;
+    }
+
+    .week-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .week-card {
+      padding: 12px;
+      border: 1px solid #e5dbc0;
+      border-radius: 8px;
+      background: #fffdf7;
+    }
+
+    .week-card h3 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+    }
+
+    .week-card ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    @media (max-width: 900px) {
+      .topbar,
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .topbar {
+        align-items: stretch;
+      }
+
+      .actions {
+        justify-content: flex-start;
+      }
+
+      .book-grid,
+      .week-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .quest-controls {
+        grid-template-columns: 1fr;
+      }
+
+      .review-item {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 620px) {
+      .app-shell {
+        width: min(100% - 20px, 1180px);
+        padding-top: 12px;
+      }
+
+      .student-card {
+        grid-template-columns: 1fr;
+      }
+
+      .book-grid,
+      .week-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cover {
+        min-height: 160px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <div class="brand">
+        <h1>School Year Dashboard</h1>
+        <p>Track the next thing, celebrate steady work, and open the literature companion when it is time to read and write.</p>
+      </div>
+      <nav class="actions" aria-label="Main links">
+        <a class="button primary" href="../literature-companion/index.html">Open Literature Textbook</a>
+        <a class="button" href="../index.html">Home</a>
+      </nav>
+    </header>
+
+    <div class="tabs" role="tablist" aria-label="Dashboard sections">
+      <button class="tab-button" id="tab-james" role="tab" aria-selected="true" aria-controls="james">James</button>
+      <button class="tab-button" id="tab-emma" role="tab" aria-selected="false" aria-controls="emma">Emma</button>
+      <button class="tab-button" id="tab-books" role="tab" aria-selected="false" aria-controls="books">Reading Shelf</button>
+      <button class="tab-button" id="tab-week" role="tab" aria-selected="false" aria-controls="week">This Week</button>
+    </div>
+
+    <section class="view active" id="james" role="tabpanel" aria-labelledby="tab-james">
+      <div class="grid">
+        <section class="panel">
+          <div class="student-card">
+            <div class="avatar" aria-hidden="true">J</div>
+            <div>
+              <h2>James</h2>
+              <p>Finish quests in each subject. Hit 80% for the weekly goal and 100% to clear the level.</p>
+            </div>
+          </div>
+          <div class="subject-list" data-progress-list="james"></div>
+        </section>
+
+        <aside class="panel">
+          <h2>James's Scoreboard</h2>
+          <div class="summary-number">
+            <div>
+              <strong id="james-average">0%</strong>
+              <span>Experience</span>
+            </div>
+          </div>
+          <p class="score-detail" id="james-target-status">Target: 80% this week</p>
+          <button class="button small" type="button" id="james-reset-week">New Week</button>
+          <div class="next-box">
+            <label for="james-next">Next thing to do</label>
+            <input id="james-next" data-save="james-next" value="Read today's chapter and mark math practice.">
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="emma" role="tabpanel" aria-labelledby="tab-emma">
+      <div class="grid">
+        <section class="panel">
+          <div class="student-card">
+            <div class="avatar emma" aria-hidden="true">E</div>
+            <div>
+              <h2>Emma</h2>
+              <p>Check each box when the job is done. The list remembers what you finish.</p>
+            </div>
+          </div>
+          <div class="checklist" data-checklist="emma"></div>
+        </section>
+
+        <aside class="panel">
+          <h2>Emma's Checklist</h2>
+          <div class="summary-number">
+            <div>
+              <strong id="emma-total">0/0</strong>
+              <span>items checked</span>
+            </div>
+          </div>
+          <div class="next-box">
+            <label for="emma-next">Next thing to do</label>
+            <input id="emma-next" data-save="emma-next" value="Choose a reading task, then check it off.">
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="view" id="books" role="tabpanel" aria-labelledby="tab-books">
+      <div class="book-grid" id="book-grid"></div>
+    </section>
+
+    <section class="view" id="week" role="tabpanel" aria-labelledby="tab-week">
+      <div class="panel">
+        <h2>This Week</h2>
+        <div class="week-grid">
+          <article class="week-card">
+            <h3>Math</h3>
+            <ul>
+              <li>Finish daily lesson.</li>
+              <li>Correct missed problems.</li>
+              <li>Mark progress for James or Emma.</li>
+            </ul>
+          </article>
+          <article class="week-card">
+            <h3>Reading</h3>
+            <ul>
+              <li>Read the assigned pages.</li>
+              <li>Tell back the main events.</li>
+              <li>Open the companion unit.</li>
+            </ul>
+          </article>
+          <article class="week-card">
+            <h3>Writing</h3>
+            <ul>
+              <li>Complete copywork or dictation.</li>
+              <li>Write one careful response.</li>
+              <li>Read work aloud before turning it in.</li>
+            </ul>
+          </article>
+          <article class="week-card">
+            <h3>Other Subjects</h3>
+            <ul>
+              <li>Science or history notebook.</li>
+              <li>Memory work.</li>
+              <li>Project or art time.</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    const weeklyTarget = 80;
+
+    const jamesSubjects = [
+      { name: "Math", unit: "pages", assigned: 3 },
+      { name: "Reading", unit: "sections", assigned: 4 },
+      { name: "Writing", unit: "assignments", assigned: 2 },
+      { name: "Spelling", unit: "practices", assigned: 3 },
+      { name: "Grammar", unit: "lessons", assigned: 2 },
+      { name: "Science", unit: "sections", assigned: 2 },
+      { name: "History", unit: "sections", assigned: 2 },
+      { name: "Projects", unit: "steps", assigned: 1 }
+    ];
+
+    const emmaItems = [
+      "Math lesson finished",
+      "Math corrections checked",
+      "Reading pages completed",
+      "Narration told back clearly",
+      "Copywork written neatly",
+      "Spelling words practiced",
+      "Writing response finished",
+      "Literature companion opened",
+      "Science or history notebook done",
+      "Work area cleaned up"
+    ];
+
+    const books = [
+      {
+        title: "Aesop's Fables",
+        author: "Aesop",
+        className: "aesop",
+        unit: "../literature-companion/units/aesop.html"
+      },
+      {
+        title: "Alice's Adventures in Wonderland",
+        author: "Lewis Carroll",
+        className: "alice",
+        unit: "../literature-companion/units/alice.html"
+      },
+      {
+        title: "Treasure Island",
+        author: "Robert Louis Stevenson",
+        className: "treasure",
+        unit: "../literature-companion/units/treasure-island.html"
+      },
+      {
+        title: "Little Women",
+        author: "Louisa May Alcott",
+        className: "women",
+        unit: "../literature-companion/units/little-women.html"
+      },
+      {
+        title: "The Secret Garden",
+        author: "Frances Hodgson Burnett",
+        className: "garden",
+        unit: "../literature-companion/units/the-secret-garden.html"
+      },
+      {
+        title: "The Wind in the Willows",
+        author: "Kenneth Grahame",
+        className: "willows",
+        unit: "../literature-companion/units/the-wind-in-the-willows.html"
+      }
+    ];
+
+    const storagePrefix = "school-dashboard:";
+
+    function getSaved(key, fallback) {
+      const saved = localStorage.getItem(storagePrefix + key);
+      return saved === null ? fallback : saved;
+    }
+
+    function save(key, value) {
+      localStorage.setItem(storagePrefix + key, value);
+    }
+
+    function subjectSlug(subject) {
+      return subject.name.toLowerCase().replaceAll(" ", "-");
+    }
+
+    function getSubjectCounts(subject) {
+      const slug = subjectSlug(subject);
+      const assigned = Math.max(1, Number(getSaved("james-assigned-" + slug, String(subject.assigned))));
+      const done = Math.max(0, Math.min(assigned, Number(getSaved("james-done-" + slug, "0"))));
+      const submitted = Math.max(0, Math.min(assigned, Number(getSaved("james-submitted-" + slug, "0"))));
+      const approved = Math.max(0, Math.min(assigned, Number(getSaved("james-approved-" + slug, "0"))));
+      return { assigned, done, submitted, approved };
+    }
+
+    function getSubjectPercent(subject) {
+      const counts = getSubjectCounts(subject);
+      return Math.round((counts.approved / counts.assigned) * 100);
+    }
+
+    function renderProgressRows() {
+      const container = document.querySelector("[data-progress-list='james']");
+      container.replaceChildren();
+
+      jamesSubjects.forEach((subject) => {
+        const slug = subjectSlug(subject);
+        const doneKey = "james-done-" + slug;
+        const assignedKey = "james-assigned-" + slug;
+        const submittedKey = "james-submitted-" + slug;
+        const counts = getSubjectCounts(subject);
+        const value = getSubjectPercent(subject);
+        const row = document.createElement("article");
+        row.className = "subject-row";
+        row.innerHTML = `
+          <div class="subject-heading">
+            <span>${subject.name}</span>
+            <span data-progress-label>${value}%</span>
+          </div>
+          <div class="game-meta">
+            <span class="badge" data-count-label>${counts.approved}/${counts.assigned} approved</span>
+            <span class="badge" data-finished-label>${counts.done}/${counts.assigned} finished</span>
+            <span class="badge target">Weekly target: ${weeklyTarget}%</span>
+            <span class="badge" data-clear-label>${value >= 100 ? "Level cleared" : "Quest in progress"}</span>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <div class="progress-fill" style="width: ${value}%"></div>
+          </div>
+          <div class="quest-controls">
+            <div class="quest-control">
+              <button class="icon-button" type="button" data-role="done" data-step="-1" aria-label="Lower completed ${subject.name} ${subject.unit}">-</button>
+              <label>
+                <small>Done</small>
+                <input type="number" min="0" step="1" value="${counts.done}" data-done aria-label="Completed ${subject.name} ${subject.unit}">
+              </label>
+              <button class="icon-button" type="button" data-role="done" data-step="1" aria-label="Raise completed ${subject.name} ${subject.unit}">+</button>
+            </div>
+            <div class="quest-control">
+              <button class="icon-button" type="button" data-role="assigned" data-step="-1" aria-label="Lower assigned ${subject.name} ${subject.unit}">-</button>
+              <label>
+                <small>Assigned</small>
+                <input type="number" min="1" step="1" value="${counts.assigned}" data-assigned aria-label="Assigned ${subject.name} ${subject.unit}">
+              </label>
+              <button class="icon-button" type="button" data-role="assigned" data-step="1" aria-label="Raise assigned ${subject.name} ${subject.unit}">+</button>
+            </div>
+          </div>
+          <div class="level-message" data-level-message>${getLevelMessage(value)}</div>
+          <button class="button small full" type="button" data-submit-james>Submit ${subject.name} for review</button>
+        `;
+
+        const label = row.querySelector("[data-progress-label]");
+        const fill = row.querySelector(".progress-fill");
+        const doneInput = row.querySelector("[data-done]");
+        const assignedInput = row.querySelector("[data-assigned]");
+        const countLabel = row.querySelector("[data-count-label]");
+        const finishedLabel = row.querySelector("[data-finished-label]");
+        const clearLabel = row.querySelector("[data-clear-label]");
+        const levelMessage = row.querySelector("[data-level-message]");
+        const submitButton = row.querySelector("[data-submit-james]");
+
+        function updateQuest(nextDone, nextAssigned) {
+          const assigned = Math.max(1, Math.round(Number(nextAssigned) || 1));
+          const done = Math.max(0, Math.min(assigned, Math.round(Number(nextDone) || 0)));
+          const approved = Math.min(assigned, getSubjectCounts(subject).approved);
+          const submitted = Math.min(assigned, getSubjectCounts(subject).submitted);
+          const percent = Math.round((approved / assigned) * 100);
+          doneInput.value = done;
+          assignedInput.value = assigned;
+          label.textContent = percent + "%";
+          fill.style.width = percent + "%";
+          countLabel.textContent = approved + "/" + assigned + " approved";
+          finishedLabel.textContent = done + "/" + assigned + " finished";
+          clearLabel.textContent = percent >= 100 ? "Level cleared" : "Quest in progress";
+          clearLabel.classList.toggle("ready", percent >= 100);
+          levelMessage.textContent = getLevelMessage(percent);
+          save(doneKey, String(done));
+          save(assignedKey, String(assigned));
+          save("james-approved-" + slug, String(approved));
+          save(submittedKey, String(submitted));
+          updateJamesAverage();
+          renderParentReview();
+        }
+
+        clearLabel.classList.toggle("ready", value >= 100);
+        doneInput.addEventListener("input", () => updateQuest(doneInput.value, assignedInput.value));
+        assignedInput.addEventListener("input", () => updateQuest(doneInput.value, assignedInput.value));
+        row.querySelectorAll("[data-step]").forEach((button) => {
+          button.addEventListener("click", () => {
+            if (button.dataset.role === "done") {
+              updateQuest(Number(doneInput.value) + Number(button.dataset.step), assignedInput.value);
+            } else {
+              updateQuest(doneInput.value, Number(assignedInput.value) + Number(button.dataset.step));
+            }
+          });
+        });
+        submitButton.addEventListener("click", () => {
+          const done = Math.max(0, Math.min(Number(assignedInput.value), Number(doneInput.value)));
+          save(submittedKey, String(done));
+          submitButton.textContent = done > 0 ? "Submitted for parent review" : "Nothing finished yet";
+          renderParentReview();
+        });
+
+        container.append(row);
+      });
+
+      updateJamesAverage();
+    }
+
+    function updateJamesAverage() {
+      const total = jamesSubjects.reduce((sum, subject) => {
+        return sum + getSubjectPercent(subject);
+      }, 0);
+      const average = Math.round(total / jamesSubjects.length);
+      document.getElementById("james-average").textContent = average + "%";
+      document.getElementById("james-target-status").textContent = average >= weeklyTarget
+        ? "Weekly target reached. Bonus level unlocked."
+        : "Target: reach " + weeklyTarget + "% this week.";
+    }
+
+    function getLevelMessage(percent) {
+      if (percent >= 100) {
+        return "Level cleared. Great finish.";
+      }
+      if (percent >= weeklyTarget) {
+        return "Target reached. Keep going for 100%.";
+      }
+      if (percent > 0) {
+        return "Quest started. Push toward 80%.";
+      }
+      return "Ready for the first move.";
+    }
+
+    function renderEmmaChecklist() {
+      const container = document.querySelector("[data-checklist='emma']");
+      container.replaceChildren();
+
+      emmaItems.forEach((item, index) => {
+        const key = "emma-check-" + index;
+        const approvedKey = "emma-approved-" + index;
+        const checked = getSaved(key, "false") === "true";
+        const approved = getSaved(approvedKey, "false") === "true";
+        const label = document.createElement("label");
+        label.className = "check-item";
+        label.innerHTML = `
+          <input type="checkbox" ${checked ? "checked" : ""}>
+          <span>${item} <span class="status-pill ${approved ? "approved" : checked ? "pending" : ""}">${approved ? "Approved" : checked ? "Submitted" : "Not submitted"}</span></span>
+        `;
+
+        label.querySelector("input").addEventListener("change", (event) => {
+          save(key, String(event.target.checked));
+          if (!event.target.checked) {
+            save(approvedKey, "false");
+          }
+          updateEmmaTotal();
+          renderEmmaChecklist();
+          renderParentReview();
+        });
+
+        container.append(label);
+      });
+
+      updateEmmaTotal();
+    }
+
+    function updateEmmaTotal() {
+      const approved = emmaItems.filter((_, index) => getSaved("emma-approved-" + index, "false") === "true").length;
+      document.getElementById("emma-total").textContent = approved + "/" + emmaItems.length;
+    }
+
+    function renderParentReview() {
+      const container = document.getElementById("review-list");
+      if (!container) {
+        return;
+      }
+      container.replaceChildren();
+      const reviewItems = [];
+
+      jamesSubjects.forEach((subject) => {
+        const slug = subjectSlug(subject);
+        const counts = getSubjectCounts(subject);
+        if (counts.submitted > counts.approved) {
+          reviewItems.push({
+            student: "James",
+            title: subject.name,
+            detail: counts.submitted + " " + subject.unit + " submitted; " + counts.approved + " approved so far.",
+            action: "Approve " + counts.submitted + "/" + counts.assigned,
+            type: "james",
+            slug
+          });
+        }
+      });
+
+      emmaItems.forEach((item, index) => {
+        const submitted = getSaved("emma-check-" + index, "false") === "true";
+        const approved = getSaved("emma-approved-" + index, "false") === "true";
+        if (submitted && !approved) {
+          reviewItems.push({
+            student: "Emma",
+            title: item,
+            detail: "Checklist item submitted and waiting for parent approval.",
+            action: "Approve",
+            type: "emma",
+            index
+          });
+        }
+      });
+
+      if (reviewItems.length === 0) {
+        const empty = document.createElement("div");
+        empty.className = "review-empty";
+        empty.textContent = "No submitted work is waiting right now.";
+        container.append(empty);
+        return;
+      }
+
+      reviewItems.forEach((item) => {
+        const reviewItem = document.createElement("article");
+        reviewItem.className = "review-item";
+        reviewItem.innerHTML = `
+          <div>
+            <h3>${item.student}: ${item.title}</h3>
+            <p>${item.detail}</p>
+          </div>
+          <button class="button small" type="button">${item.action}</button>
+        `;
+        reviewItem.querySelector("button").addEventListener("click", () => {
+          if (item.type === "james") {
+            const submitted = getSaved("james-submitted-" + item.slug, "0");
+            save("james-approved-" + item.slug, submitted);
+          } else {
+            save("emma-approved-" + item.index, "true");
+          }
+          renderProgressRows();
+          renderEmmaChecklist();
+          updateEmmaTotal();
+          renderParentReview();
+        });
+        container.append(reviewItem);
+      });
+    }
+
+    function renderBooks() {
+      const container = document.getElementById("book-grid");
+
+      books.forEach((book) => {
+        const card = document.createElement("article");
+        card.className = "book-card";
+        card.innerHTML = `
+          <div class="cover ${book.className}" role="img" aria-label="Book cover for ${book.title}">
+            <span>${book.title}</span>
+          </div>
+          <h3>${book.title}</h3>
+          <p>${book.author}</p>
+          <div class="book-links">
+            <a href="${book.unit}">Open unit</a>
+          </div>
+        `;
+        container.append(card);
+      });
+    }
+
+    function wireTabs() {
+      const tabs = document.querySelectorAll("[role='tab']");
+      const views = document.querySelectorAll("[role='tabpanel']");
+
+      tabs.forEach((tab) => {
+        tab.addEventListener("click", () => {
+          tabs.forEach((item) => item.setAttribute("aria-selected", String(item === tab)));
+          views.forEach((view) => view.classList.toggle("active", view.id === tab.getAttribute("aria-controls")));
+        });
+      });
+    }
+
+    function wireSavedInputs() {
+      document.querySelectorAll("[data-save]").forEach((input) => {
+        input.value = getSaved(input.dataset.save, input.value);
+        input.addEventListener("input", () => save(input.dataset.save, input.value));
+      });
+    }
+
+    function wireJamesReset() {
+      document.getElementById("james-reset-week").addEventListener("click", () => {
+        if (!confirm("Start a new week for James? This clears completed counts but keeps assigned goals.")) {
+          return;
+        }
+
+        jamesSubjects.forEach((subject) => {
+          const slug = subjectSlug(subject);
+          save("james-done-" + slug, "0");
+          save("james-submitted-" + slug, "0");
+          save("james-approved-" + slug, "0");
+        });
+
+        renderProgressRows();
+        renderParentReview();
+      });
+    }
+
+    renderProgressRows();
+    renderEmmaChecklist();
+    renderBooks();
+    renderParentReview();
+    wireTabs();
+    wireSavedInputs();
+    wireJamesReset();
+  </script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+student,book,packet_type,source_file,status,include_in_portfolio,term,completed_date,parent_notes,portfolio_excerpt_heading
+Emma,The Secret Garden,Writing Packet,student-packets/emma-secret-garden-packet.md,Reviewed,yes,2026 Spring,2026-06-13,Clear descriptions and good use of spelling words.,Assignment 1: Before-and-After Description
+Emma,The Secret Garden,Project Report,student-packets/emma-secret-garden-packet.md,Ready for Review,yes,2026 Spring,2026-06-14,Needs one more sentence explaining how the garden changes Mary.,Assignment 2: Garden Plan Project
+James,The Secret Garden,Writing Packet,student-packets/james-secret-garden-packet.md,Reviewed,yes,2026 Spring,2026-06-13,Strong concrete details; keep working on punctuation.,Assignment 1: Before-and-After Description
+James,The Secret Garden,Narration,student-packets/james-secret-garden-packet.md,In Progress,no,2026 Spring,,Still drafting.,Assignment 2: Discovery Narration

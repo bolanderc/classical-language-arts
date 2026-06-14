@@ -1,0 +1,99 @@
+# Google Docs Packet Workflow
+
+This page mocks up a controlled Google Docs workflow for student writing. Instead of asking students to create a new copy for every prompt, the parent creates one response packet per student per book. The EPUB and HTML book then link each student to the correct packet.
+
+## Parent Setup
+
+1. Create a master packet template in Google Docs.
+2. Make one copy for each student and book.
+3. Name each copy with this pattern:
+
+`Student Name - Book Title - Response Packet`
+
+4. Place the copies in student folders, such as `Classical Language Arts / Emma` and `Classical Language Arts / James`.
+5. Share each packet with the correct student.
+6. Paste each packet's `/edit` link into the Student Dashboard and the matching unit page.
+
+## Example Packet Links
+
+These are placeholders for the real documents:
+
+| Student | Book | Packet Link |
+|---|---|---|
+| Emma | The Secret Garden | <https://docs.google.com/document/d/EMMA_SECRET_GARDEN_GOOGLE_DOC_ID/edit> |
+| James | The Secret Garden | <https://docs.google.com/document/d/JAMES_SECRET_GARDEN_GOOGLE_DOC_ID/edit> |
+
+## Student Workflow
+
+1. Open the literature unit.
+2. Choose a writing prompt or project.
+3. Select the student's own packet link.
+4. Write under the correct assignment heading.
+5. Mark the assignment as ready for review at the top of the packet.
+
+## Unit Page Link Pattern
+
+For a real curriculum page, a prompt section might include links like this:
+
+::: {.discussion-box}
+**Open your response packet**
+
+- [Emma - The Secret Garden](https://docs.google.com/document/d/EMMA_SECRET_GARDEN_GOOGLE_DOC_ID/edit)
+- [James - The Secret Garden](https://docs.google.com/document/d/JAMES_SECRET_GARDEN_GOOGLE_DOC_ID/edit)
+:::
+
+## Optional Family Drive Structure
+
+```text
+Classical Language Arts
+  Templates
+    Master Book Response Packet
+    Project Report Insert
+  Emma
+    Aesop
+    The Secret Garden
+    Treasure Island
+  James
+    Aesop
+    The Secret Garden
+    Treasure Island
+  Parent Review
+    Ready for Review
+    Reviewed
+```
+
+## Setup Checklist
+
+```text
+For each book:
+  1. Copy the master packet for Emma.
+  2. Copy the master packet for James.
+  3. Rename both documents.
+  4. Share each document with the correct student.
+  5. Replace the placeholder links in this Quarto book.
+  6. Render the HTML and EPUB versions again.
+```
+
+## Parent Review Pattern
+
+Use Google Docs comments for corrections and questions. Keep a short parent review box near the top of the document so each response packet becomes a portfolio artifact.
+
+```text
+Parent Review
+Latest assignment reviewed:
+Strength:
+Correction to practice:
+Next step:
+```
+      Aesop
+      The Secret Garden
+      Treasure Island
+    Child 2
+      Aesop
+      The Secret Garden
+      Treasure Island
+```
+
+## Parent Review Pattern
+
+Use Google Docs comments for corrections and questions. Keep the final grade or parent notes at the top of the document so each response becomes an easy portfolio artifact.

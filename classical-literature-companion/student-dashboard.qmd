@@ -1,0 +1,42 @@
+# Student Dashboard
+
+Use this page as the family launch point for student writing. Each link should point to a specific Google Doc that already belongs to that student and book.
+
+The links below are placeholders. After the Google Docs are created, replace each `GOOGLE_DOC_ID` with the real document ID.
+
+## Emma
+
+| Book | Response Packet | Status |
+|---|---|---|
+| Aesop's Fables | [Open Emma's packet](https://docs.google.com/document/d/EMMA_AESOP_GOOGLE_DOC_ID/edit) | Not started |
+| Alice's Adventures in Wonderland | [Open Emma's packet](https://docs.google.com/document/d/EMMA_ALICE_GOOGLE_DOC_ID/edit) | Not started |
+| Treasure Island | [Open Emma's packet](https://docs.google.com/document/d/EMMA_TREASURE_ISLAND_GOOGLE_DOC_ID/edit) | Not started |
+| Little Women | [Open Emma's packet](https://docs.google.com/document/d/EMMA_LITTLE_WOMEN_GOOGLE_DOC_ID/edit) | Not started |
+| The Secret Garden | [Open Emma's packet](https://docs.google.com/document/d/EMMA_SECRET_GARDEN_GOOGLE_DOC_ID/edit) | Ready |
+| The Wind in the Willows | [Open Emma's packet](https://docs.google.com/document/d/EMMA_WIND_WILLOWS_GOOGLE_DOC_ID/edit) | Not started |
+
+## James
+
+| Book | Response Packet | Status |
+|---|---|---|
+| Aesop's Fables | [Open James's packet](https://docs.google.com/document/d/JAMES_AESOP_GOOGLE_DOC_ID/edit) | Not started |
+| Alice's Adventures in Wonderland | [Open James's packet](https://docs.google.com/document/d/JAMES_ALICE_GOOGLE_DOC_ID/edit) | Not started |
+| Treasure Island | [Open James's packet](https://docs.google.com/document/d/JAMES_TREASURE_ISLAND_GOOGLE_DOC_ID/edit) | Not started |
+| Little Women | [Open James's packet](https://docs.google.com/document/d/JAMES_LITTLE_WOMEN_GOOGLE_DOC_ID/edit) | Not started |
+| The Secret Garden | [Open James's packet](https://docs.google.com/document/d/JAMES_SECRET_GARDEN_GOOGLE_DOC_ID/edit) | Ready |
+| The Wind in the Willows | [Open James's packet](https://docs.google.com/document/d/JAMES_WIND_WILLOWS_GOOGLE_DOC_ID/edit) | Not started |
+
+## Parent Review Queue
+
+Use this section when a student finishes an assignment and needs review.
+
+| Student | Book | Assignment | Review Link | Parent Notes |
+|---|---|---|---|---|
+| Emma | The Secret Garden | Before-and-after description | [Review Emma's packet](https://docs.google.com/document/d/EMMA_SECRET_GARDEN_GOOGLE_DOC_ID/edit) |  |
+| James | The Secret Garden | Garden plan project report | [Review James's packet](https://docs.google.com/document/d/JAMES_SECRET_GARDEN_GOOGLE_DOC_ID/edit) |  |
+
+## Link Rules
+
+- Student links should go to existing documents with `/edit`, not `/copy`.
+- Template links should live only on the parent workflow page.
+- Finished assignments should be dated inside the packet so the same document can hold a whole book's worth of work.
