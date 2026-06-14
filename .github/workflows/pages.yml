@@ -1,4 +1,4 @@
-name: Deploy GitHub Pages
+name: Deploy Literature Companion
 
 on:
   push:
@@ -26,16 +26,18 @@ jobs:
       - name: Set up Quarto
         uses: quarto-dev/quarto-actions/setup@v2
 
-      - name: Render literature companion
+      - name: Render literature companion HTML
         run: quarto render classical-literature-companion --to html
+
+      - name: Render literature companion EPUB
+        run: quarto render classical-literature-companion --to epub
 
       - name: Assemble Pages site
         shell: bash
         run: |
           mkdir -p _site
-          cp index.html _site/index.html
-          cp -R kid-dashboard _site/kid-dashboard
-          cp -R classical-literature-companion/_book _site/literature-companion
+          cp -R classical-literature-companion/_book/* _site/
+          cp "classical-literature-companion/_book/Classical-Language-Arts--Literature-Companion.epub" _site/classical-language-arts.epub
           touch _site/.nojekyll
 
       - name: Configure Pages

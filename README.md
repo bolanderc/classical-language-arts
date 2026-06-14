@@ -20,18 +20,13 @@ quarto render
 ## GitHub Pages
 
 This repo includes a GitHub Actions workflow at `.github/workflows/pages.yml`.
-When changes are pushed to `main` or `master`, the workflow:
-
-- renders the Quarto literature companion as HTML
-- copies the kids dashboard and parent review page
-- publishes everything as one GitHub Pages site
+When changes are pushed to `main` or `master`, the workflow renders the Quarto
+literature companion as HTML and EPUB, then publishes both to GitHub Pages.
 
 After pushing to GitHub, open the repository settings and set **Pages** to deploy
 from **GitHub Actions**.
 
-Published pages:
+Published outputs:
 
-- Site home: `/`
-- Kids dashboard: `/kid-dashboard/`
-- Parent review: `/kid-dashboard/parent-review.html`
-- Literature companion: `/literature-companion/`
+- Literature companion HTML: `/`
+- Literature companion EPUB: `/classical-language-arts.epub`
