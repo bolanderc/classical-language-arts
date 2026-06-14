@@ -1,0 +1,13 @@
+**/.quarto/
+**/_book/
+*.html
+*.pdf
+*.epub
+*.aux
+*.log
+*.out
+*.tex
+*.toc
+.Rproj.user/
+.DS_Store
+Thumbs.db

@@ -1,0 +1,124 @@
+# Student Response Packet Template
+
+This page shows the content that could live inside the master Google Doc template. The parent copies this template once per student per book. Students write all assignments for that book inside the same packet.
+
+## Template Text
+
+```text
+Classical Language Arts Response Packet
+
+Student:
+Book:
+Started:
+
+Review Status
+[ ] Working
+[ ] Ready for parent review
+[ ] Reviewed
+
+Parent Review
+Latest assignment reviewed:
+Strength:
+Correction to practice:
+Next step:
+
+Spelling Words for This Book
+1.
+2.
+3.
+4.
+5.
+6.
+7.
+8.
+9.
+10.
+
+Assignment 1: Narration
+Date:
+Prompt:
+
+My Response:
+
+
+Revision Checklist
+[ ] I answered the prompt.
+[ ] I used complete sentences.
+[ ] I included a specific detail from the book.
+[ ] I checked capitalization and punctuation.
+[ ] I checked this unit's spelling words.
+[ ] I read my work aloud and improved one sentence.
+
+Assignment 2: Writing Prompt
+Date:
+Prompt:
+
+Before Writing
+- What happened in the reading?
+- Which character, place, or idea will I write about?
+- Which spelling words should I try to use?
+
+My Response:
+
+
+Revision Checklist
+[ ] I answered the prompt.
+[ ] I used complete sentences.
+[ ] I included a specific detail from the book.
+[ ] I checked capitalization and punctuation.
+[ ] I checked this unit's spelling words.
+[ ] I read my work aloud and improved one sentence.
+
+Assignment 3: Project Report
+Date:
+Project:
+
+What I Made:
+
+What It Shows About the Book:
+
+What I Would Improve:
+```
+
+## Example Filled In
+
+```text
+Classical Language Arts Response Packet
+
+Student: Emma
+Book: The Secret Garden
+Started: June 13, 2026
+
+Review Status
+[ ] Working
+[x] Ready for parent review
+[ ] Reviewed
+
+Parent Review
+Latest assignment reviewed:
+Strength:
+Correction to practice:
+Next step:
+
+Spelling Words for This Book
+1. garden
+2. earth
+3. bloom
+4. cheerful
+5. restoration
+
+Assignment 2: Writing Prompt
+Date: June 13, 2026
+Prompt: Write a before-and-after description of a neglected place restored to beauty.
+
+My Response:
+At first the garden looked forgotten. The earth was hard, the paths were hidden, and the plants seemed asleep. After Mary began to care for it, the place slowly changed. Green shoots appeared, flowers began to bloom, and the air felt cheerful. The restoration of the garden also helped the children become stronger and happier.
+
+Revision Checklist
+[x] I answered the prompt.
+[x] I used complete sentences.
+[x] I included a specific detail from the book.
+[x] I checked capitalization and punctuation.
+[x] I checked this unit's spelling words.
+[x] I read my work aloud and improved one sentence.
+```

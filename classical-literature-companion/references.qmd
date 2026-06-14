@@ -1,0 +1,6 @@
+# References {.unnumbered}
+
+The literature units are designed around public-domain classics commonly available through library editions and public text repositories.
+
+::: {#refs}
+:::
