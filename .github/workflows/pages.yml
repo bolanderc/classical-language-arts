@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - main
+      - master
   workflow_dispatch:
 
 permissions:
@@ -28,14 +29,18 @@ jobs:
       - name: Render literature companion HTML
         run: quarto render classical-literature-companion --to html
 
-      - name: Render literature companion EPUB
-        run: quarto render classical-literature-companion --to epub
-
-      - name: Assemble Pages site
+      - name: Start Pages site with HTML output
         shell: bash
         run: |
           mkdir -p _site
           cp -R classical-literature-companion/_book/* _site/
+
+      - name: Render literature companion EPUB
+        run: quarto render classical-literature-companion --to epub
+
+      - name: Add EPUB download
+        shell: bash
+        run: |
           cp "classical-literature-companion/_book/Classical-Language-Arts--Literature-Companion.epub" _site/classical-language-arts.epub
           touch _site/.nojekyll
 
